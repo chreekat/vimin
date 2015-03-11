@@ -24,3 +24,8 @@ Recomendations
 Use this modeline:
 
     -- vim: nocin nosi ai sw=2 ts=80 :
+
+License
+-------
+
+GPLv3+, as in LICENSE.
