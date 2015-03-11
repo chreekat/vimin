@@ -3,7 +3,11 @@ Some vim support for IN files
 
 **What's an IN file?**
 
-Eh, it's just a file with an outline. Outlines look like:
+Eh, it's just a file with an outline. Name it foo.in. It's "in" as in inbox
+— a place to keep todo lists or anything else. My IN.in has almost 7000
+items! Crap! (But hey, at least I know this plugin is performant.)
+
+Outlines look like:
 
     - This item is at the top
     - Here's another item
