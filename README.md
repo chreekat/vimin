@@ -22,7 +22,7 @@ It makes outlines fold hecka nice! The above list, at foldlevel=1, would look li
 
 It also makes folded lines bold. That might look funky with some colorschemes, so YMMV.
 
-Recomendations
+Recommendations
 --------------
 
 Use this modeline:
