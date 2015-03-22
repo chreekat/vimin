@@ -4,28 +4,33 @@ if exists("b:did_ftplugin")
 endif
 let b:did_ftplugin = 1
 
-" Get the fold level for a line. Usually it's the same as nestLevel
-" (defined below), except when an item has subitems.
+" Get the fold level for a line.
 func! InboxFoldDepth(lineNr) abort
-    if s:itemStartsOn(a:lineNr)
-        let curDepth = s:nestLevel(a:lineNr)
+    " '=' is not recommended because it's slow, but most lines are one of
+    " the "special cases" below, and performance seems pretty good.
+    let depth = '='
 
-        if s:itemHasSubItems(a:lineNr, curDepth)
-            let curDepth = '>' . (curDepth + 1)
+    " Case: New item.
+    if s:itemStartsOn(a:lineNr)
+        let depth = s:nestLevel(a:lineNr)
+
+        " Case: Starting a new nesting.
+        if s:itemHasSubItems(a:lineNr, depth)
+            let depth = '>' . (depth + 1)
         endif
-        return curDepth
-    elseif match(getline(a:lineNr), '^\s*$') >= 0
+    " Case: Empty line.
+    elseif match(getline(a:lineNr), '\S') == -1
         " Empty lines belong to whatever around them is lower -- unless
-        " whatever's lower is >1. In that case, we want 0.
+        " whatever's lower is >1. In that case, we want 0 to avoid annoying
+        " 1-line folds.
         if s:nextLevel(a:lineNr) == ">1"
-            return 0
+            let depth = 0
         else
-            return -1
+            let depth = -1
         endif
-    else
-        " Catch-all for non-item lines.
-        return '='
     endif
+
+    return depth
 endfunc
 
 " Get the nest level for a line.
