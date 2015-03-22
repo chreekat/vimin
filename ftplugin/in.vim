@@ -15,8 +15,13 @@ func! InboxFoldDepth(lineNr) abort
         endif
         return curDepth
     elseif match(getline(a:lineNr), '^\s*$') >= 0
-        " Empty lines belong to whatever around them is lower
-        return -1
+        " Empty lines belong to whatever around them is lower -- unless
+        " whatever's lower is >1. In that case, we want 0.
+        if s:nextLevel(a:lineNr) == ">1"
+            return 0
+        else
+            return -1
+        endif
     else
         " Catch-all for non-item lines.
         return '='
@@ -32,6 +37,11 @@ endfunc
 
 func! s:itemStartsOn(lineNr) abort
     return match(getline(a:lineNr), '^ *[-/] ') >= 0
+endfunc
+
+" Get the next nest level.
+func! s:nextLevel(lineNr) abort
+    return s:nestLevel(s:nextItem(a:lineNr))
 endfunc
 
 " Does an item have sub items?
