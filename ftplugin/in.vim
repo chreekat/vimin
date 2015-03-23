@@ -75,13 +75,18 @@ endfunc
 
 function! InboxFoldText() abort
     let subItemCt = s:countSubItems(v:foldstart, v:foldend)
+    " Add ellipsis if first item wraps
+    let ellipsis = ''
+    if subItemCt > 0 && s:nextItem(v:foldstart) !=# v:foldstart + 1
+        let ellipsis = '…'
+    endif
     return substitute(
         \ substitute(
             \ getline(v:foldstart),
             \ '-',
             \ '+', ''),
         \ '\s*$',
-        \ ' (↓'.subItemCt.')', '')
+        \ ellipsis . ' (↓'.subItemCt.')', '')
 endfunc
 
 function! s:countSubItems(foldstart, foldend)
