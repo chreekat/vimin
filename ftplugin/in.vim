@@ -111,5 +111,3 @@ command! -range -buffer HS echo s:itemHasSubItems(<line1>, <line2>)
 setl foldmethod=expr
 setl foldexpr=InboxFoldDepth(v:lnum)
 setl foldtext=InboxFoldText()
-
-hi Folded cterm=bold ctermfg=12
