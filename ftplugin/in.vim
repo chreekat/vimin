@@ -74,10 +74,10 @@ func! s:nextItem(lineNr) abort
 endfunc
 
 function! InboxFoldText() abort
-    let subItemCt = s:countSubItems(v:foldstart, v:foldend)
+    let childCt = s:countChildItems(v:foldstart, v:foldend)
     " Add ellipsis if first item wraps
     let ellipsis = ''
-    if subItemCt > 0 && s:nextItem(v:foldstart) !=# v:foldstart + 1
+    if childCt > 0 && s:nextItem(v:foldstart) !=# v:foldstart + 1
         let ellipsis = '…'
     endif
     return substitute(
@@ -86,22 +86,24 @@ function! InboxFoldText() abort
             \ '-',
             \ '+', ''),
         \ '\s*$',
-        \ ellipsis . ' (↓'.subItemCt.')', '')
+        \ ellipsis . ' (↓'.childCt.')', '')
 endfunc
 
-function! s:countSubItems(foldstart, foldend)
+" Only counts direct descendents, not grandchildren.
+function! s:countChildItems(foldstart, foldend)
+    let childDepth = s:nestLevel(a:foldstart) + 1
     let lineNr = a:foldstart + 1
-    let subItemCt = 0
+    let childCt = 0
     while lineNr <= a:foldend
-        if s:itemStartsOn(lineNr)
-            let subItemCt = subItemCt + 1
+        if s:itemStartsOn(lineNr) && s:nestLevel(lineNr) ==# childDepth
+            let childCt = childCt + 1
         endif
         let lineNr = lineNr + 1
     endwhile
-    return subItemCt
+    return childCt
 endfunc
 
-command! -range -buffer SI echo s:countSubItems(<line1>, <line2>)
+command! -range -buffer SI echo s:countChildItems(<line1>, <line2>)
 command! -range -buffer NL echo s:nestLevel(<line1>)
 command! -range -buffer NI echo s:nextItem(<line1>)
 command! -range -buffer FD echo InboxFoldDepth(<line1>)
