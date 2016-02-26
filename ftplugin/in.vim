@@ -17,6 +17,11 @@ func! InboxFoldDepth(lineNr) abort
         " Case: Starting a new nesting.
         if s:itemHasSubItems(a:lineNr, depth)
             let depth = '>' . (depth + 1)
+        " Case: Bare item (no subitems) is multiline, or has notes. Treat
+        " as zero-child new nesting.
+        elseif nextnonblank(a:lineNr + 1) == a:lineNr + 1
+               \ && s:nextItem(a:lineNr) > a:lineNr + 1
+            let depth = '>' . (depth + 1)
         endif
     " Case: Empty line.
     elseif match(getline(a:lineNr), '\S') == -1
