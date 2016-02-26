@@ -45,8 +45,16 @@ func! s:nestLevel(lineNr) abort
     return strlen(matchstr(getline(a:lineNr), "^ *")) / &shiftwidth
 endfunc
 
+" The character that starts an item is a flag with following meanings:
+" X :: To-do item that has been abandoned (like 'wontfix')
+" / :: Finished to-do item
+" ? :: A note that is a question
+" @ :: A context for next actions
+" - :: Everything else (unfinished to-do items, notes, etc.)
+" ! :: Hi-pri or answers to questions
+"
 func! s:itemStartsOn(lineNr) abort
-    return match(getline(a:lineNr), '^ *[-/] ') >= 0
+    return match(getline(a:lineNr), '^ *[-/X\?@!] ') >= 0
 endfunc
 
 " Get the next nest level.
