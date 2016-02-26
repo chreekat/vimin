@@ -43,11 +43,11 @@ other secret hidden features (tm)
 Recommendations
 --------------
 
-I think the options that make folding nice are:
-
-    nocin nosi ai
-
-I may or may not already include those in the ftplugin file.
+* Keep items formatted with judicious use of `gq`.
+* Be careful moving items around. There's no notion of an "item" text
+  object, so you have to do everything linewise at best.
+* Use the shift operators! `>>` and `<<` in Normal mode, and `<c-t>` and
+  `<c-d>` in Insert mode. It's fun.
 
 License
 -------
