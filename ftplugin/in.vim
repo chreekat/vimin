@@ -90,8 +90,13 @@ function! InboxFoldText() abort
     let childCt = s:countChildItems(v:foldstart, v:foldend)
     " Add ellipsis if first item wraps
     let ellipsis = ''
-    if childCt > 0 && s:nextItem(v:foldstart) !=# v:foldstart + 1
+    if s:nextItem(v:foldstart) !=# v:foldstart + 1
         let ellipsis = '…'
+    endif
+    " Show child count if >0
+    let showChild = ''
+    if (childCt > 0)
+        let showChild = ' (↓'.childCt.')'
     endif
     return substitute(
         \ substitute(
@@ -99,7 +104,7 @@ function! InboxFoldText() abort
             \ '-',
             \ '+', ''),
         \ '\s*$',
-        \ ellipsis . ' (↓'.childCt.')', '')
+        \ ellipsis . showChild, '')
 endfunc
 
 " Only counts direct descendents, not grandchildren.
