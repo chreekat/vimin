@@ -33,7 +33,7 @@ And at foldlevel=2:
     - This item is at the top
     - Here's another item
         + Items nest and stuff (↓1)
-        + Items can be really really long, so that they wrap over multiple…
+        - Items can be really really long, so that they wrap over multiple…
         - baz
 
 

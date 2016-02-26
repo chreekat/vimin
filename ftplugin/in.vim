@@ -93,16 +93,19 @@ function! InboxFoldText() abort
     if s:nextItem(v:foldstart) !=# v:foldstart + 1
         let ellipsis = '…'
     endif
-    " Show child count if >0
+    " If child count >0, show it, and change - into +
     let showChild = ''
+    let itemStart = '-'
     if (childCt > 0)
         let showChild = ' (↓'.childCt.')'
+        let itemStart = '+'
     endif
+    " Turn - into + if child count >0
     return substitute(
         \ substitute(
             \ getline(v:foldstart),
             \ '-',
-            \ '+', ''),
+            \ itemStart, ''),
         \ '\s*$',
         \ ellipsis . showChild, '')
 endfunc
