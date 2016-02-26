@@ -126,3 +126,12 @@ command! -range -buffer HS echo s:itemHasSubItems(<line1>, <line2>)
 setl foldmethod=expr
 setl foldexpr=InboxFoldDepth(v:lnum)
 setl foldtext=InboxFoldText()
+setl sw=2 tw=80 fdc=3
+setl cole=2 cocu=nc
+
+nnoremap <buffer> o o-<space>
+nnoremap <buffer> O O-<space>
+nnoremap <buffer> S S-<space>
+" Todo: Make this fancier, workflowy style.
+" i.e. Line is blank? Decrease indent
+inoremap <buffer> <cr> <cr>-<space>
