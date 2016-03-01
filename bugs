@@ -1,0 +1,4 @@
+if a line is missing a dash, fold on next level is fucked | id:368837ae0a54d770887052a2dd6a6c38fa560a7a
+longline at end of file is not folded | id:4b6596890c1bcff0b5d13fb73d7d74ceb5e9af80
+when folding comment, show top line | id:53125ac4b7eea83eee3e289581c5fa87a522ce77
+empty comment lines dont hide > | id:b11b465c9854e0cb30ac71a1d6028137078638a0

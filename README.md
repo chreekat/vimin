@@ -49,6 +49,14 @@ Recommendations
 * Use the shift operators! `>>` and `<<` in Normal mode, and `<c-t>` and
   `<c-d>` in Insert mode. It's fun.
 
+I'd like to make formatting and moving easier in the future.
+
+TODO
+----
+
+See the 'bugs' file (and [t](https://github.com/sjl/t)).
+
+
 License
 -------
 
