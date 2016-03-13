@@ -10,6 +10,8 @@ is performant.)
 
 Outlines look like:
 
+![example image](https://i.imgur.com/HrmuUgV.png)
+
     - This item is at the top
     - Here's another item
         - Items nest and stuff
