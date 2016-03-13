@@ -50,6 +50,7 @@ Recommendations
   object, so you have to do everything linewise at best.
 * Use the shift operators! `>>` and `<<` in Normal mode, and `<c-t>` and
   `<c-d>` in Insert mode. It's fun.
+* Works well with [Goyo](https://github.com/junegunn/goyo.vim) and [NrrwRgn](https://github.com/chrisbra/NrrwRgn).
 
 I'd like to make formatting and moving easier in the future.
 
