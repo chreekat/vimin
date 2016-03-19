@@ -9,9 +9,9 @@ syn match inPrinciples /\c- \zsprinciples:/ display
 syn match inOutcome /\c- \zsoutcome:/ display
 syn match inWF /\c- \zswaiting for:/ display
 
-syn match inQuestion /^\s*\zs?/ display
-syn match inHiPri /^\s*\zs!/ display
-
+syn match inQuestion /^\s*\zs?\ze / display
+syn match inHiPri /^\s*\zs!\ze / display
+syn match inFinished /^\s*\zs\/\ze / display conceal cchar=✓
 syn match inBold /\*\*\w\+\*\*/ display contains=inBoldMarker
 syn match inBoldMarker /\*\*/ contained display conceal
 
