@@ -70,7 +70,8 @@ func! s:itemHasSubItems(lineNr, curDepth) abort
     return nextItemLineNr != -1 && s:nestLevel(nextItemLineNr) > a:curDepth
 endfunc
 
-" Here I avoid using search(), which requires moving the cursor.
+" Here I avoid using search(), which would require moving the cursor to
+" start the search.
 func! s:nextItem(lineNr) abort
     let lastBufLine = getpos('$')[1]
 
