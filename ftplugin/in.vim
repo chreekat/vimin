@@ -143,5 +143,9 @@ nnoremap <buffer> o o-<space>
 nnoremap <buffer> O O-<space>
 nnoremap <buffer> S S-<space>
 " Todo: Make this fancier, workflowy style.
-" i.e. Line is blank? Decrease indent
+" e.g. Line is blank? Decrease indent
 inoremap <buffer> <cr> <cr>-<space>
+
+" I might want this universally
+inoremap <buffer> <c-t> <c-t><c-o>zv
+
