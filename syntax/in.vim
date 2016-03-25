@@ -1,8 +1,10 @@
 syn sync fromstart
 
-syn match inComment /^\s*> .*$/ contains=inCommentLdr display
-syn match inCommentLdr /^\s*\zs>\ze / contained display conceal cchar=  nextgroup=inCommentTxt
-syn match inCommentTxt /.*$/ contained display
+syn match inComment /^\s*[>"].*"\?$/ contains=inCommentLdr1,inCommentLdr2 display
+syn match inCommentLdr1 /^\s*\zs>\ze / contained display conceal cchar=  nextgroup=inCommentTxt
+syn match inCommentLdr2 /^\s*\zs"/ contained display conceal cchar=  nextgroup=inCommentTxt
+syn match inCommentTxt /.\{-}\ze"\?$/ contained display nextgroup=inCommentFtr
+syn match inCommentFtr /"\?/ contained display conceal cchar=  "space
 
 syn match inNA /\c- \zsnext action:/ display
 syn match inPrinciples /\c- \zsprinciples:/ display
