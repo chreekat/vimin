@@ -14,7 +14,7 @@ syn match inWF /\c- \zswaiting for:/ display
 syn match inQuestion /^\s*\zs?\ze / display
 syn match inHiPri /^\s*\zs!\ze / display
 syn match inFinished /^\s*\zs\/\ze / display conceal cchar=✓
-syn match inBold /\*\*\w\+\*\*/ display contains=inBoldMarker
+syn match inBold /\*\*\S.*\S\*\*/ display contains=inBoldMarker
 syn match inBoldMarker /\*\*/ contained display conceal
 
 func! s:highlighting()
