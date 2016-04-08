@@ -1,4 +1,4 @@
-syn sync fromstart
+syn sync minlines=50
 
 syn match inComment /^\s*[>"].*"\?$/ contains=inCommentLdr1,inCommentLdr2 display
 syn match inCommentLdr1 /^\s*\zs>\ze / contained display conceal cchar=  nextgroup=inCommentTxt
