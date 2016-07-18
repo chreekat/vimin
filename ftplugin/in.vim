@@ -138,6 +138,7 @@ setl foldtext=InboxFoldText()
 setl sw=2 tw=80 fdc=3
 setl cole=2 cocu=nc
 setl nocin nosi ai
+setl smartcase
 
 nnoremap <buffer> o o-<space>
 nnoremap <buffer> O O-<space>
