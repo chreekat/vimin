@@ -98,7 +98,7 @@ function! InboxFoldText() abort
     let showChild = ''
     let itemStart = '-'
     if (childCt > 0)
-        let showChild = ' (↓'.childCt.' ␤'.(v:foldend - v:foldstart + 1).')'
+        let showChild = ' ⟮⍿'.childCt.' ␤'.(v:foldend - v:foldstart + 1).'⟯'
         let itemStart = '+'
     endif
     " Turn - into + if child count >0
