@@ -42,7 +42,7 @@ endfunc
 "
 " Equivalent to (num leading spaces) / shiftwidth.
 func! s:nestLevel(lineNr) abort
-    return strlen(matchstr(getline(a:lineNr), "^ *")) / &shiftwidth
+    return strwidth(matchstr(getline(a:lineNr), "^ *")) / &shiftwidth
 endfunc
 
 " The character that starts an item is a flag with following meanings:
@@ -88,6 +88,7 @@ func! s:nextItem(lineNr) abort
 endfunc
 
 function! InboxFoldText() abort
+    let foldedLength = 95
     let childCt = s:countChildItems(v:foldstart, v:foldend)
     " Add ellipsis if first item wraps
     let ellipsis = ''
@@ -101,14 +102,30 @@ function! InboxFoldText() abort
         let showChild = ' ⟮⍿'.childCt.' ␤'.(v:foldend - v:foldstart + 1).'⟯'
         let itemStart = '+'
     endif
+    " Add the ellipsis
+    let beginning = substitute(getline(v:foldstart), '\s*$', ellipsis, '')
+    let beginningLength = strwidth(beginning . showChild)
+    if beginningLength < foldedLength
+        let beginning .= s:repeat(' ', foldedLength - beginningLength)
+    endif
     " Turn - into + if child count >0
-    return substitute(
+    return
         \ substitute(
-            \ getline(v:foldstart),
-            \ '-',
-            \ itemStart, ''),
-        \ '\s*$',
-        \ ellipsis . showChild, '')
+            \ beginning,
+            \ '^\s*\zs-',
+            \ itemStart, '')
+        \ . showChild
+endfunc
+
+" Repeat a character some number of times
+function! s:repeat(c, n) abort
+    let r = ""
+    let i = 0
+    while i < a:n
+        let r .= a:c
+        let i += 1
+    endwhile
+    return r
 endfunc
 
 " Only counts direct descendents, not grandchildren.
