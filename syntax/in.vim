@@ -28,6 +28,7 @@ func! s:highlighting()
     hi inHiPri          cterm=reverse ctermfg=1
     hi inWF             ctermfg=1
     hi clear Folded
+    hi Folded           ctermbg=0
 endfunc
 
 call s:highlighting()
