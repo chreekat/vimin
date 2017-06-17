@@ -58,12 +58,10 @@ function! s:new_item()
         endif
     elseif emptyLine
         " Just add a line
-        normal o
-        startinsert!
+        call feedkeys('o')
     elseif atLineEnd
         " Start a new item
-        exec "normal o——\<space>\<c-d>"
-        startinsert!
+        call feedkeys("o——\<space>\<c-d>")
     else " Either no marker or in the middle of an item
         set noremap
         if hasMarker
@@ -79,7 +77,7 @@ function! s:new_item()
         if getline('.') =~ '^\s*$'
             normal l
         endif
-        call feedkeys('a','n')
+        call feedkeys('a')
     endif
 endfunction
 
