@@ -37,7 +37,8 @@ function! s:new_item()
 
     let hasMarker = l =~ '^\s*—— '
     let atItemBegin = hasMarker && col('.') <= matchend(l, '^\s*—— ')
-    let atLineEnd = col('.') + 1 >= col('$')
+    let emptyLine = col('$') == 1
+    let atLineEnd = ! emptyLine && col('.') + 1 >= col('$')
     let indentedMarker = hasMarker && l =~ '^\s'
     let emptyItem = l =~ '^\s*—— $'
 
@@ -55,6 +56,10 @@ function! s:new_item()
         else
             startinsert
         endif
+    elseif emptyLine
+        " Just add a line
+        normal o
+        startinsert!
     elseif atLineEnd
         " Start a new item
         exec "normal o——\<space>\<c-d>"
