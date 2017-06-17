@@ -10,37 +10,23 @@ is performant.)
 
 Outlines look like:
 
-![example image](https://i.imgur.com/HrmuUgV.png)
-
-    - This item is at the top
-    - Here's another item
-        - Items nest and stuff
-          - They can nest a lot.
-            > They can also have comments!
-        - Items can be really really long, so that they wrap over multiple
-          lines. It's up to you to set vim to indent things properly. I
-          should find out what options I use that make it nice. Short
-          story: it's nice.
-        - baz
+    —— This item is at the top
+    —— Here's another item
+        —— Items nest and stuff
+            —— They can nest a lot.
+        —— Items can be really really long, so that they wrap over multiple
+           lines. I've set vim options that make this happen automatically, for
+           the most part.
+        —— baz
 
 **What's this plugin do?**
 
-It makes outlines fold hecka nice! The above list, at foldlevel=1, would look like:
+Well, it used to do lots of questionably useful things! Now I've rebooted it,
+and it:
 
-    - This item is at the top
-    + Here's another item (↓3)
-
-And at foldlevel=2:
-
-    - This item is at the top
-    - Here's another item
-        + Items nest and stuff (↓1)
-        - Items can be really really long, so that they wrap over multiple…
-        - baz
-
-
-There's also some visual niceness around comments and long lines, and some
-other secret hidden features (tm)
+* Sets some good options
+* Abbreviates `--` to `——`
+* Makes `<cr>` act sort of clever. Maybe too clever? Hopefully intuitive.
 
 Recommendations
 --------------
@@ -53,12 +39,6 @@ Recommendations
 * Works well with [Goyo](https://github.com/junegunn/goyo.vim) and [NrrwRgn](https://github.com/chrisbra/NrrwRgn).
 
 I'd like to make formatting and moving easier in the future.
-
-TODO
-----
-
-See the 'bugs' file (and [t](https://github.com/sjl/t)).
-
 
 License
 -------
