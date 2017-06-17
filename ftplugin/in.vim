@@ -4,6 +4,11 @@ if exists("b:did_ftplugin")
 endif
 let b:did_ftplugin = 1
 
-setlocal com=fb\:——,\:> fdm=indent sw=2 fo=tcqnl1jo
+setlocal comments=fb\:——,\:>
+setlocal foldmethod=indent
+setlocal formatoptions=tcqnl1jo
+setlocal ignorecase
+setlocal shiftwidth=4
+setlocal smartcase
 
 iabbrev -- ——
