@@ -25,7 +25,6 @@ Well, it used to do lots of questionably useful things! Now I've rebooted it,
 and it:
 
 * Sets some good options
-* Abbreviates `--` to `——`
 * Makes `<cr>` act sort of clever. Maybe too clever? Hopefully intuitive.
 
 Recommendations
@@ -36,6 +35,25 @@ Recommendations
   object, so you have to do everything linewise at best.
 * Use the shift operators! `>>` and `<<` in Normal mode, and `<c-t>` and
   `<c-d>` in Insert mode. It's fun.
+* Try using `insort` (from [chreekat/usort](https://github.com/chreekat/usort))
+  for sorting top-level items.
+* vim-unimpaired's "paste and indent" mappings are nice. I re-implemented them
+  like so:
+  ```vim
+  function! VimrcIndentPaste(reg, dent, dir)
+      set nofoldenable
+      exec 'normal "' . a:reg . ']' . a:dir . a:dent . "']"
+      set foldenable
+  endfu
+
+  for dent in ['>','<']
+      for dire in ['p','P']
+          exec 'nnoremap ' . dent . dire . " :call VimrcIndentPaste(v:register, '".dent."', '".dire."')<cr>zv"
+      endfor
+  endfor
+  unlet dire dent
+  ```
+    *  [From my vimrc](https://github.com/chreekat/bDotfiles/blob/699b416a3ece2a0e3d2f9c5277d02db8352c387f/vimrc#L117-L129)
 * Works well with [Goyo](https://github.com/junegunn/goyo.vim) and [NrrwRgn](https://github.com/chrisbra/NrrwRgn).
 
 I'd like to make formatting and moving easier in the future.
