@@ -7,13 +7,11 @@ if exists("b:did_ftplugin")
 endif
 let b:did_ftplugin = 1
 
-setlocal comments=fb\:——,\:>
+setlocal comments=f:-\ \ ,:>
 setlocal foldmethod=indent
 setlocal formatoptions=tcqnl1jo
 setlocal ignorecase
 setlocal shiftwidth=4
 setlocal smartcase
-
-iabbrev <buffer> -- ——
 
 imap <unique> <buffer> <cr> <Plug>ViminNewItem

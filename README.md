@@ -10,14 +10,14 @@ is performant.)
 
 Outlines look like:
 
-    —— This item is at the top
-    —— Here's another item
-        —— Items nest and stuff
-            —— They can nest a lot.
-        —— Items can be really really long, so that they wrap over multiple
+    -  This item is at the top
+    -  Here's another item
+        -  Items nest and stuff
+            -  They can nest a lot.
+        -  Items can be really really long, so that they wrap over multiple
            lines. I've set vim options that make this happen automatically, for
            the most part.
-        —— baz
+        -  baz
 
 **What's this plugin do?**
 
