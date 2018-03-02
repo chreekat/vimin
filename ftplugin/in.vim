@@ -19,3 +19,4 @@ setlocal shiftwidth=4
 setlocal smartcase
 
 imap <unique> <buffer> <cr> <Plug>ViminNewItem
+nnoremap <unique> <buffer> I ^wi
