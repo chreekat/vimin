@@ -1,1 +1,1 @@
-autocmd BufNewFile,BufRead *.in setf in
+autocmd BufNewFile,BufRead *.in setf markdown.in
