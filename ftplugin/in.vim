@@ -20,3 +20,4 @@ setlocal smartcase
 
 imap <unique> <buffer> <cr> <Plug>ViminNewItem
 nnoremap <unique> <buffer> I ^wi
+nmap <localleader>o A<cr>
