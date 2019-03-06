@@ -17,12 +17,12 @@ function! vimin#new_item()
 
     let l = getline('.')
 
-    let hasMarker = l =~ '^\s*-  '
-    let atItemBegin = hasMarker && col('.') <= matchend(l, '^\s*-  ')
+    let hasMarker = l =~ '^\s*- '
+    let atItemBegin = hasMarker && col('.') <= matchend(l, '^\s*- ')
     let emptyLine = col('$') == 1
     let atLineEnd = ! emptyLine && col('.') + 1 >= col('$')
     let indentedMarker = hasMarker && l =~ '^\s'
-    let emptyItem = l =~ '^\s*-  $'
+    let emptyItem = l =~ '^\s*- $'
 
     if (atItemBegin || emptyItem)
         " Operate on the item as a whole

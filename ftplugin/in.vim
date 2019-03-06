@@ -11,7 +11,6 @@ else
   let b:undo_ftplugin .= "|setl com< fdm< fo< ic< sw< sc<"
 endif
 
-setlocal comments=f:-\ \ ,:>
 setlocal foldmethod=indent
 setlocal formatoptions=tcqnl1jo
 setlocal ignorecase
