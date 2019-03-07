@@ -15,14 +15,16 @@
 function! vimin#new_item()
     let remapSave = &remap
 
+    let itemMarker = '- '
+
     let l = getline('.')
 
-    let hasMarker = l =~ '^\s*- '
-    let atItemBegin = hasMarker && col('.') <= matchend(l, '^\s*- ')
+    let hasMarker = l =~ '^\s*' . itemMarker
+    let atItemBegin = hasMarker && col('.') <= matchend(l, '^\s*' . itemMarker)
     let emptyLine = col('$') == 1
     let atLineEnd = ! emptyLine && col('.') + 1 >= col('$')
     let indentedMarker = hasMarker && l =~ '^\s'
-    let emptyItem = l =~ '^\s*- $'
+    let emptyItem = l =~ '^\s*' . itemMarker . '$'
 
     if (atItemBegin || emptyItem)
         " Operate on the item as a whole
@@ -43,7 +45,7 @@ function! vimin#new_item()
         call feedkeys('o')
     elseif atLineEnd
         " Start a new item
-        call feedkeys("o-\<space>\<space>\<c-d>")
+        call feedkeys('o' . itemMarker . "\<c-d>")
     else " Either no marker or in the middle of an item
         set noremap
         if hasMarker
