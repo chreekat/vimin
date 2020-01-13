@@ -19,6 +19,6 @@ setlocal ignorecase
 setlocal shiftwidth=4
 setlocal smartcase
 
-imap <unique> <buffer> <cr> <Plug>ViminNewItem
-nnoremap <unique> <buffer> I ^wi
+imap <buffer> <cr> <Plug>ViminNewItem
+nnoremap <buffer> I ^wi
 nmap <localleader>o A<cr>
