@@ -6,12 +6,12 @@ endif
 runtime! ftplugin/markdown.vim ftplugin/markdown_*.vim ftplugin/markdown/*.vim
 
 if exists('b:undo_ftplugin')
-  let b:undo_ftplugin .= "|iunmap <buffer> <cr>|iunmap <script> <Plug>ViminNewItem"
-  let b:undo_ftplugin .= "|setl com< fdm< fo< ic< sw< sc<"
+  let b:undo_ftplugin .= "|"
 else
-  let b:undo_ftplugin = "iunmap <buffer> <cr>|iunmap <script> <Plug>ViminNewItem"
-  let b:undo_ftplugin .= "|setl com< fdm< fo< ic< sw< sc<"
+  let b:undo_ftplugin = ""
 endif
+let b:undo_ftplugin .= "iunmap <buffer> <cr>|nunmap <buffer> I"
+let b:undo_ftplugin .= "|setl fdm< fo< ic< sw< sc<"
 
 setlocal foldmethod=indent
 setlocal formatoptions=tcqnl1jo
@@ -19,6 +19,6 @@ setlocal ignorecase
 setlocal shiftwidth=4
 setlocal smartcase
 
-imap <buffer> <cr> <Plug>ViminNewItem
-nnoremap <buffer> I ^wi
+imap <unique> <buffer> <cr> <Plug>ViminNewItem
+nnoremap <unique> <buffer> I ^wi
 nmap <localleader>o A<cr>
