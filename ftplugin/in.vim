@@ -1,8 +1,10 @@
 " Only do this when not done yet for this buffer
-if exists("b:did_in_ftplugin")
+if exists("b:did_ftplugin")
     finish
 endif
-let b:did_in_ftplugin=1
+
+runtime! ftplugin/markdown.vim ftplugin/markdown_*.vim ftplugin/markdown/*.vim
+
 if exists('b:undo_ftplugin')
   let b:undo_ftplugin .= "|iunmap <buffer> <cr>|iunmap <script> <Plug>ViminNewItem"
   let b:undo_ftplugin .= "|setl com< fdm< fo< ic< sw< sc<"
