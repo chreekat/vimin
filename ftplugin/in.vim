@@ -14,7 +14,7 @@ let b:undo_ftplugin .= "iunmap <buffer> <cr>|nunmap <buffer> I"
 let b:undo_ftplugin .= "|setl fdm< fo< ic< sw< sc<"
 
 setlocal foldmethod=indent
-setlocal foldtext=
+setlocal foldtext=vimin#foldtext()
 setlocal formatoptions=tcqnl1jo
 setlocal ignorecase
 setlocal shiftwidth=4

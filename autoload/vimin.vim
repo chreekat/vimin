@@ -64,3 +64,18 @@ function! vimin#new_item()
         call feedkeys('a')
     endif
 endfunction
+
+function! vimin#foldtext(start = v:foldstart, end = v:foldend) abort
+    let level_marker = repeat(' ', &shiftwidth * v:foldlevel)
+    let item_count = 0
+    let curline = a:start
+    while curline <= a:end
+        if 0 == match(getline(curline), level_marker . '\S')
+            let item_count += 1
+        endif
+        let curline += 1
+    endwhile
+    return
+        \ printf("+%s %d items (%d lines) folded",
+            \ v:folddashes, item_count, a:end - a:start + 1)
+endfunction
