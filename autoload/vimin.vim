@@ -75,8 +75,10 @@ function! vimin#foldtext(start = v:foldstart, end = v:foldend) abort
         endif
         let curline += 1
     endwhile
-    let item_word = item_count > 1 ? 'items' : 'item'
+    let item_word = item_count == 1 ? 'item' : 'items'
+    let line_count = a:end - a:start + 1
+    let line_word = line_count == 1 ? 'line' : 'lines'
     return
-        \ printf("+%s %d %s (%d lines) folded",
-            \ v:folddashes, item_count, item_word, a:end - a:start + 1)
+        \ printf("%s+- %d %s (%d %s) folded",
+            \ level_marker, item_count, item_word, line_count, line_word)
 endfunction
