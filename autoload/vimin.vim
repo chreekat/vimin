@@ -20,9 +20,9 @@ function! vimin#new_item()
     let l = getline('.')
 
     let hasMarker = l =~ '^\s*' . itemMarker
-    let atItemBegin = hasMarker && col('.') <= matchend(l, '^\s*' . itemMarker)
-    let emptyLine = col('$') == 1
-    let atLineEnd = ! emptyLine && col('.') + 1 >= col('$')
+    let atItemBegin = hasMarker && charcol('.') <= matchend(l, '^\s*' . itemMarker)
+    let emptyLine = charcol('$') == 1
+    let atLineEnd = ! emptyLine && charcol('.') + 1 >= charcol('$')
     let indentedMarker = hasMarker && l =~ '^\s'
     let emptyItem = l =~ '^\s*' . itemMarker . '$'
 
