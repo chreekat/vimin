@@ -15,8 +15,6 @@ let s:itemMarker = '- '
 "    break item's line,
 "    move line down
 function! vimin#new_item()
-    let remapSave = &remap
-
     let l = getline('.')
 
     let hasMarker = l =~ '^\s*' . s:itemMarker
@@ -32,7 +30,7 @@ function! vimin#new_item()
             normal <<3l
         else " Nonindented
             " Move down
-            normal O
+            normal! O
             normal j3l
         endif
         if emptyItem
@@ -42,26 +40,24 @@ function! vimin#new_item()
         endif
     elseif emptyLine
         " Just add a line
-        call feedkeys('o')
+        call feedkeys('o', 'n')
     elseif atLineEnd
         " Start a new item
-        call feedkeys('o' . s:itemMarker . "\<c-d>")
+        call feedkeys('o' . s:itemMarker . "\<c-d>", 'n')
     else " Either no marker or in the middle of an item
-        set noremap
         if hasMarker
             " Wrap current item's text. This is different form the following
             " branch because of vim's autoformatting.
-            exec "normal a\<cr>   "
+            exec "normal! a\<cr>   "
         else
             " Newline as normal. FIXME: It's not "as normal" because of
             " autoindent magic.
-            exec "normal a\<cr> \<c-h>"
+            exec "normal! a\<cr>\<c-h>"
         endif
-        let &remap = remapSave
         if getline('.') =~ '^\s*$'
             normal l
         endif
-        call feedkeys('a')
+        call feedkeys('a', 'n')
     endif
 endfunction
 
