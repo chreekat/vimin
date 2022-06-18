@@ -1,5 +1,21 @@
 let s:itemMarker = '- '
 
+" Begin a new item above the current one.
+" Situations:
+"     no marker,
+"     marker
+function! vimin#new_item_above()
+    let l = getline('.')
+    let hasMarker = l =~ '^\s*' . s:itemMarker
+
+    if hasMarker
+        call feedkeys('O' . s:itemMarker, 'n')
+    else
+        " Pass-through
+        call feedkeys('O', 'n')
+    endif
+endfunction
+
 " Begin a new item, or move the newly-begun item around. Bound to <cr> in insert
 " mode.
 " Situations:
