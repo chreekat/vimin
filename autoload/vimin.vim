@@ -66,9 +66,8 @@ function! vimin#new_item()
             " branch because of vim's autoformatting.
             exec "normal! a\<cr>   "
         else
-            " Newline as normal. FIXME: It's not "as normal" because of
-            " autoindent magic.
-            exec "normal! a\<cr>\<c-h>"
+            " Newline as normal.
+            exec "normal! a\<cr>"
         endif
         if getline('.') =~ '^\s*$'
             normal l
