@@ -26,6 +26,7 @@ and it:
 
 * Sets some good options
 * Makes `<cr>` act sort of clever. Maybe too clever? Hopefully intuitive.
+* `o` and `O` also kinda do the right thing.
 
 Recommendations
 --------------
