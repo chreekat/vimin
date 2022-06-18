@@ -1,3 +1,5 @@
+let s:itemMarker = '- '
+
 " Begin a new item, or move the newly-begun item around. Bound to <cr> in insert
 " mode.
 " Situations:
@@ -15,16 +17,14 @@
 function! vimin#new_item()
     let remapSave = &remap
 
-    let itemMarker = '- '
-
     let l = getline('.')
 
-    let hasMarker = l =~ '^\s*' . itemMarker
-    let atItemBegin = hasMarker && charcol('.') <= matchend(l, '^\s*' . itemMarker)
+    let hasMarker = l =~ '^\s*' . s:itemMarker
+    let atItemBegin = hasMarker && charcol('.') <= matchend(l, '^\s*' . s:itemMarker)
     let emptyLine = charcol('$') == 1
     let atLineEnd = ! emptyLine && charcol('.') + 1 >= charcol('$')
     let indentedMarker = hasMarker && l =~ '^\s'
-    let emptyItem = l =~ '^\s*' . itemMarker . '$'
+    let emptyItem = l =~ '^\s*' . s:itemMarker . '$'
 
     if (atItemBegin || emptyItem)
         " Operate on the item as a whole
@@ -45,7 +45,7 @@ function! vimin#new_item()
         call feedkeys('o')
     elseif atLineEnd
         " Start a new item
-        call feedkeys('o' . itemMarker . "\<c-d>")
+        call feedkeys('o' . s:itemMarker . "\<c-d>")
     else " Either no marker or in the middle of an item
         set noremap
         if hasMarker
