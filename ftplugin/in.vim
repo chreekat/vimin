@@ -19,6 +19,12 @@ setlocal formatoptions=tcqnl1jo
 setlocal ignorecase
 setlocal shiftwidth=4
 setlocal smartcase
+" Identify "/" as a list start (it means "done item")
+setlocal formatlistpat=^\\s*\\d\\+\\.\\s\\+\\\|^\\s*[-*/]\ \\ze\\s*
+" Lots of indenting calls for a wider textwidth
+if &textwidth < 100
+    setlocal textwidth=100
+endif
 
 imap <buffer> <cr> <Plug>ViminNewItem
 nnoremap <unique> <buffer> I ^wi
