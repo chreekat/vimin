@@ -1,5 +1,28 @@
 let s:itemMarker = '- '
 
+" When backspacing through the item marker, the backspace through the rest of
+" the line as well, ending up on the end of the previous line.
+function! vimin#backspace()
+    let l = getline('.')
+    if match(l, '^\s*' .. s:itemMarker .. '\s*$') == 0
+        " There's an implicit 'k' if we're on the last line.
+        if line('.') == line('$')
+            normal dd
+        else
+            normal ddk
+        endif
+        startinsert!
+    else
+        if charcol('.') == charcol('$') - 1
+            normal x
+            startinsert!
+        else
+            normal x
+            startinsert
+        endif
+    endif
+endfunction
+
 " Begin a new item above the current one.
 " Situations:
 "     no marker,

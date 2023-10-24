@@ -27,6 +27,7 @@ if &textwidth < 100
 endif
 
 imap <buffer> <cr> <Plug>ViminNewItem
+imap <buffer> <BS> <Plug>ViminBackspace
 nnoremap <unique> <buffer> I ^wi
-nmap o A<cr>
+nmap <buffer> o A<cr>
 nmap <buffer> O <Plug>ViminNewAbove
