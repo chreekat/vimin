@@ -59,6 +59,7 @@ function! vimin#new_item()
     let hasMarker = l =~ '^\s*' . s:itemMarker
     let atItemBegin = hasMarker && charcol('.') <= matchend(l, '^\s*' . s:itemMarker)
     let emptyLine = charcol('$') == 1
+    let atLineStart = charcol('.') == 1
     let atLineEnd = ! emptyLine && charcol('.') + 1 >= charcol('$')
     let indentedMarker = hasMarker && l =~ '^\s'
     let emptyItem = l =~ '^\s*' . s:itemMarker . '$'
@@ -88,14 +89,15 @@ function! vimin#new_item()
             " Wrap current item's text. This is different form the following
             " branch because of vim's autoformatting.
             exec "normal! a\<cr>   "
-        else
-            " Newline as normal.
+        elseif atLineStart
+            exec "normal! i\<cr>"
+        else " No marker and not at line start
             exec "normal! a\<cr>"
         endif
         if getline('.') =~ '^\s*$'
             normal l
         endif
-        call feedkeys('a', 'n')
+        call feedkeys('i', 'n')
     endif
 endfunction
 
