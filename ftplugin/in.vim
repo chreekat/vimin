@@ -11,9 +11,13 @@ else
   let b:undo_ftplugin = ""
 endif
 let b:undo_ftplugin .= "iunmap <buffer> <cr>|nunmap <buffer> I"
-let b:undo_ftplugin .= "|setl fdm< fo< ic< sw< sc<"
+let b:undo_ftplugin .= "|setl fdm< fo< ic< sw< sc< fdi<"
 
 setlocal foldmethod=indent
+" Aha! Lines starting with # are ignored by default with fdm=indent, which
+" probably explains a lot of weird behavior over the years. Configurable with
+" fdi.
+setlocal foldignore=
 setlocal foldtext=vimin#foldtext()
 setlocal formatoptions=tcqnl1jo
 setlocal ignorecase

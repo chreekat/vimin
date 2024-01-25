@@ -64,7 +64,7 @@ function! vimin#new_item()
     let indentedMarker = hasMarker && l =~ '^\s'
     let emptyItem = l =~ '^\s*' . s:itemMarker . '$'
 
-    if (atItemBegin || emptyItem)
+    if atItemBegin || emptyItem
         " Operate on the item as a whole
         if indentedMarker
             normal <<3l
@@ -88,14 +88,17 @@ function! vimin#new_item()
         if hasMarker
             " Wrap current item's text. This is different form the following
             " branch because of vim's autoformatting.
-            exec "normal! a\<cr>   "
-        elseif atLineStart
-            exec "normal! i\<cr>"
-        else " No marker and not at line start
-            exec "normal! a\<cr>"
-        endif
-        if getline('.') =~ '^\s*$'
-            normal l
+            exec "normal! a\<cr>  "
+        else
+            if atLineStart
+                exec "normal! i\<cr>"
+            else " No marker and not at line start
+                exec "normal! a\<cr>"
+            endif
+            " Deal with weird formatting if not at beginning of line, I think?
+            if charcol('.') != 1
+                normal l
+            endif
         endif
         call feedkeys('i', 'n')
     endif
