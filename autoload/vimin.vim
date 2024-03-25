@@ -135,3 +135,30 @@ function! vimin#foldtext(start = v:foldstart, end = v:foldend) abort
         \ printf("%s+- %d %s (%d %s) folded",
             \ level_marker, item_count, item_word, line_count, line_word)
 endfunction
+
+" Return [i,j] where i is the first line of the item and j is the last line
+" (including children).
+function! vimin#item_limit() abort
+    let l = line('.')
+    let item_level = indent(l) / &shiftwidth
+    let i = l
+    while match(getline(i), '^\s*' . s:itemMarker) == -1
+        let i -= 1
+    endwhile
+    let j = l
+    while j < line('$') &&
+            \ ( indent(j+1) / &shiftwidth > item_level
+            \ || match(getline(j+1), '^\s*' . s:itemMarker) == -1)
+        let j += 1
+    endwhile
+    return [i, j]
+endfunction
+
+" A command to use in an operator-pending mapping that operates on the current
+" item.
+" Example: >ai will indent the entire item.
+function! vimin#operate_item() abort
+    let [i, j] = vimin#item_limit()
+    exec string(i)
+    exec 'normal V' . string(j) . 'G'
+endfunction

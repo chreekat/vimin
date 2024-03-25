@@ -10,3 +10,6 @@ noremap <Plug>ViminNewAbove <esc>:call vimin#new_item_above()<cr>
 
 inoremap <unique> <script> <Plug>ViminBackspace <SID>Backspace
 inoremap <SID>Backspace <esc>:call vimin#backspace()<cr>
+
+onoremap <unique> <script> <Plug>ViminOperateItem <SID>OperateItem
+onoremap <SID>OperateItem :call vimin#operate_item()<cr>

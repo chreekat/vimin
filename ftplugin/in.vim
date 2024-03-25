@@ -10,7 +10,15 @@ if exists('b:undo_ftplugin')
 else
   let b:undo_ftplugin = ""
 endif
-let b:undo_ftplugin .= "iunmap <buffer> <cr>|nunmap <buffer> I"
+
+let b:undo_ftplugin .= "iunmap <buffer> <cr>"
+let b:undo_ftplugin .= "|iunmap <buffer> <BS>"
+let b:undo_ftplugin .= "|iunmap <buffer> <Tab>"
+let b:undo_ftplugin .= "|iunmap <buffer> <S-Tab>"
+let b:undo_ftplugin .= "|nunmap <buffer> I"
+let b:undo_ftplugin .= "|nunmap <buffer> o"
+let b:undo_ftplugin .= "|nunmap <buffer> O"
+
 let b:undo_ftplugin .= "|setl fdm< fo< ic< sw< sc< fdi<"
 
 setlocal foldmethod=indent
@@ -32,6 +40,10 @@ endif
 
 imap <buffer> <cr> <Plug>ViminNewItem
 imap <buffer> <BS> <Plug>ViminBackspace
+imap <buffer> <Tab> <C-t>
+imap <buffer> <S-Tab> <C-d>
 nnoremap <unique> <buffer> I ^wi
 nmap <buffer> o A<cr>
 nmap <buffer> O <Plug>ViminNewAbove
+
+onoremap <buffer> ai <Plug>ViminOperateItem
