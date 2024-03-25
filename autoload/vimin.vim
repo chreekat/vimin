@@ -1,4 +1,5 @@
 let s:itemMarker = '- '
+let s:noteMarker = '> '
 
 " When backspacing through the item marker, the backspace through the rest of
 " the line as well, ending up on the end of the previous line.
@@ -46,19 +47,25 @@ endfunction
 "    empty item,
 "    cursor at beginning/in marker,
 "    item indented,
-"    item not indented
+"    item not indented,
+"    blank line,
+"    in a note
 " Outcomes (order not related to situations above):
 "    De-indent current line,
 "    start new item,
 "    split current item,
 "    break item's line,
-"    move line down
+"    move line down,
+"    continue note,
+"    split line within a note
 function! vimin#new_item()
     let l = getline('.')
 
     let hasMarker = l =~ '^\s*' . s:itemMarker
+    let inNote = l =~ '^\s*' . s:noteMarker
     let atItemBegin = hasMarker && charcol('.') <= matchend(l, '^\s*' . s:itemMarker)
     let emptyLine = charcol('$') == 1
+    let blankLine = l =~ '^\s*$'
     let atLineStart = charcol('.') == 1
     let atLineEnd = ! emptyLine && charcol('.') + 1 >= charcol('$')
     let indentedMarker = hasMarker && l =~ '^\s'
@@ -81,10 +88,17 @@ function! vimin#new_item()
     elseif emptyLine
         " Just add a line
         call feedkeys('o', 'n')
-    elseif atLineEnd
+    elseif blankLine
+        " Replace current line with blank item. Indent taken automatically from
+        " level of spaces in the line.
+        call feedkeys("a" .. s:itemMarker .. "\<cr>")
+    elseif atLineEnd && ! inNote
         " Start a new item
         call feedkeys('o' . s:itemMarker . "\<c-d>", 'n')
+    elseif inNote
+        call feedkeys("a\<cr>> ", 'n')
     else " Either no marker or in the middle of an item
+        " Middle of item
         if hasMarker
             " Wrap current item's text. This is different form the following
             " branch because of vim's autoformatting.
