@@ -61,43 +61,60 @@ endfunction
 function! vimin#new_item()
     let l = getline('.')
 
+    " Line content
     let hasMarker = l =~ '^\s*' . s:itemMarker
     let inNote = l =~ '^\s*' . s:noteMarker
-    let atItemBegin = hasMarker && charcol('.') <= matchend(l, '^\s*' . s:itemMarker)
     let emptyLine = charcol('$') == 1
     let blankLine = l =~ '^\s*$'
+    let indentedMarker = hasMarker && l =~ '^\s'
+    let emptyItem = l =~ '^\s*' . s:itemMarker . '\s*$'
+
+    " Cursor location
+    let atItemBegin = hasMarker && charcol('.') <= matchend(l, '^\s*' . s:itemMarker)
     let atLineStart = charcol('.') == 1
     let atLineEnd = ! emptyLine && charcol('.') + 1 >= charcol('$')
-    let indentedMarker = hasMarker && l =~ '^\s'
-    let emptyItem = l =~ '^\s*' . s:itemMarker . '$'
 
-    if atItemBegin || emptyItem
-        " Operate on the item as a whole
-        if indentedMarker
-            normal <<3l
-        else " Nonindented
-            " Move down
-            normal! O
-            normal j3l
-        endif
-        if emptyItem
-            startinsert!
-        else
-            startinsert
-        endif
-    elseif emptyLine
+    " hasMarker -> NOT blankLine
+    " hasMarker -> NOT emptyLine
+    "
+    " emptyItem -> hasMarker
+    "
+    " indentedMarker -> hasMarker
+    "
+    " emptyLine -> atLineEnd
+    " emptyLine -> atLineStart
+    "
+    " atLineEnd && atLineStart -> emptyLine
+    "
+    if emptyLine
         " Just add a line
         call feedkeys('o', 'n')
     elseif blankLine
         " Replace current line with blank item. Indent taken automatically from
         " level of spaces in the line.
         call feedkeys("a" .. s:itemMarker .. "\<cr>")
+    elseif inNote
+        call feedkeys("a\<cr>> ", 'n')
+    elseif atItemBegin
+        if emptyItem
+            if indentedMarker
+                " De-indent current line
+                normal! <<2l
+                startinsert!
+            else
+                " Start a new item. TODO: Maybe create blank lines instead?
+                call feedkeys("\<cr>" . s:itemMarker, 'n')
+                startinsert!
+            endif
+        else
+            " Insert new blank above
+            normal O
+            startinsert!
+        endif
     elseif atLineEnd && ! inNote
         " Start a new item
         call feedkeys('o' . s:itemMarker . "\<c-d>", 'n')
-    elseif inNote
-        call feedkeys("a\<cr>> ", 'n')
-    else " Either no marker or in the middle of an item
+    else " Not blank, not empty, not in note, either no marker or in the middle of an item
         " Middle of item
         if hasMarker
             " Wrap current item's text. This is different form the following
