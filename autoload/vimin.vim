@@ -163,9 +163,7 @@ function! vimin#item_limit() abort
         let i -= 1
     endwhile
     let j = l
-    while j < line('$') &&
-            \ ( indent(j+1) / &shiftwidth > item_level
-            \ || match(getline(j+1), '^\s*' . s:itemMarker) == -1)
+    while j < line('$') && ( indent(j+1) / &shiftwidth > item_level )
         let j += 1
     endwhile
     return [i, j]
